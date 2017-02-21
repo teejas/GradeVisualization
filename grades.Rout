@@ -1,0 +1,114 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> library(ggplot2)
+> 
+> data <- read.csv("dspgrades.csv", header=T, sep=",")
+> df <- data.frame(data)
+> cum_gpa <- df$Cumulative.GPA
+> term_gpa <- df$Term.GPA
+> names <- df$Name
+> term_hrs <- df$Term.hours
+> living_in <- df$Living.in
+> 
+> norm_cum <- (cum_gpa - mean(cum_gpa)) / sd(cum_gpa)
+> norm_term <- (term_gpa - mean(term_gpa)) / sd(term_gpa)
+> norm_hrs <- (term_hrs - mean(term_hrs)) / sd(term_hrs)
+> 
+> plot(term_hrs, cum_gpa, main="Plot of Cumulative GPA per term hours", ylab="Cumulative GPA", xlab="Term hours")
+> plot(term_hrs, term_gpa, main="Plot of term grades per term hours", ylab="Term GPA", xlab="Term hours")
+> 
+> boxplot(cum_gpa~living_in, data=df, main="Cumulative GPA Data", xlab="Living In", ylab="Cumulative GPA")
+> boxplot(term_gpa~living_in, data=df, main="Term GPA Data", xlab="Living In", ylab="Term GPA")
+> 
+> mean_cum <- mean(cum_gpa)
+> mean_term <- mean(term_gpa)
+> attach(data)
+> sorteddata <- data[order(cum_gpa), ]
+> detach(data)
+> 
+> print(sorteddata)
+                  Name Cumulative.GPA Term.GPA Term.hours Living.in
+16   Sebastian Johnson          1.125   1.1250       16.0     FALSE
+28         Adam Oufkir          2.164   1.6670       15.0      TRUE
+18           Eric Karn          2.221   2.2210       15.0     FALSE
+12         Tyler Grose          2.392   3.0000       13.0      TRUE
+50       Donte Winslow          2.442   2.0000       12.0     FALSE
+42   Karol Szacilowski          2.452   2.4670       15.0     FALSE
+46     Ryan Villanueva          2.464   2.3350       12.0     FALSE
+32        Sasha Pilski          2.469   3.6680       15.0      TRUE
+27     Steve Moderhock          2.538   2.5380       18.0     FALSE
+15          Nate Jacob          2.653   3.3780       15.0     FALSE
+24      Mario Martinez          2.708   3.3610       13.0     FALSE
+40           Jack Shea          2.711   2.9010       17.0      TRUE
+51       Edward Zdunek          2.728   3.3090       14.0      TRUE
+37   Clayton Schoolman          2.731   1.7840       17.0      TRUE
+30 Varun Parthasarathy          2.737   2.1570       15.0      TRUE
+19       Clayton Kelly          2.813   2.9020       14.0     FALSE
+47        Alec Vybiral          2.843   2.0850       12.0     FALSE
+39        Eric Sedlack          2.861   2.9410       17.0     FALSE
+25          Mike Mason          2.877   3.5000       12.0      TRUE
+11     Marcos Gonzalez          2.919   3.0000       13.0     FALSE
+23        Lawrence Lin          2.933   2.9330       15.0     FALSE
+1          Zach Adcock          2.951   3.2220       18.0     FALSE
+22           Kevin Lam          2.968   2.7850       14.0     FALSE
+3        Armand Bogdan          3.002   3.0020       14.0     FALSE
+41    Tejas Siripurapu          3.002   3.7460       13.0     FALSE
+5        Kyle Buchanan          3.025   2.9980       18.0     FALSE
+21        Justin Kubal          3.062   3.1040       16.0     FALSE
+8         Patrick Dong          3.066   3.0000       13.0      TRUE
+35       Charlie Reyes          3.138   3.6430       15.0      TRUE
+20         Tamir Koren          3.143   2.7550       15.0     FALSE
+48           Jason Wei          3.148   3.1970       15.0     FALSE
+29    Robert Parkinson          3.173   3.1300       13.0      TRUE
+7    Xander Catrambone          3.217   3.8660       15.0      TRUE
+26       Kaustav Mitra          3.226   3.1910       14.0      TRUE
+10       Andrew French          3.231   3.7690       13.0     FALSE
+31       Matt Peterson          3.260   2.5210       16.0      TRUE
+33  Gabriel Ptasienski          3.278   3.3860       13.0     FALSE
+52       Nick Zembower          3.299   3.3730       17.0     FALSE
+4        Nick Bolander          3.307   3.3830       13.0     FALSE
+38          Sam Scully          3.355   3.3850       13.0      TRUE
+13      Michael Gulson          3.366   2.8720       13.0     FALSE
+44     Cooper Tonachel          3.370   3.0850       12.0     FALSE
+6         Adam Burkett          3.438   3.0880       15.0     FALSE
+14      Graham Hubbert          3.492   3.9175       12.0      TRUE
+45         James Tracy          3.500   3.3850       13.0     FALSE
+36      Brendan Schmit          3.502   3.5880       17.0     FALSE
+2       Kartik Agrawal          3.507   3.6680       15.0     FALSE
+9         Brant Fisher          3.543   3.8125       16.0      TRUE
+17     Szymon Kaminski          3.617   3.6170       13.0     FALSE
+34          Albert Qiu          3.766   3.9450       12.0     FALSE
+49         Peter Weiss          3.818   3.9230       13.0      TRUE
+43    Kyle Teschendorf          3.843   4.0000       15.5      TRUE
+> paste("Mean cumulative GPA: ", mean_cum)
+[1] "Mean cumulative GPA:  3.00757692307692"
+> paste("Mean term GPA: ", mean_term)
+[1] "Mean term GPA:  3.06978846153846"
+> paste("Std Dev cum GPA: ", sd(cum_gpa))
+[1] "Std Dev cum GPA:  0.485228644150438"
+> paste("Std Dev term GPA: ", sd(term_gpa))
+[1] "Std Dev term GPA:  0.63687544836255"
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.451   0.053   0.540 
